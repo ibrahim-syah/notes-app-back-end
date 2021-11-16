@@ -96,7 +96,7 @@ const init = async () => {
         notesService,
         validator: CollaborationsValidator,
       },
-	},
+    },
   ]);
 
   await server.start();
