@@ -9,7 +9,7 @@ class NotesService {
   constructor(collaborationService, cacheService) {
     this._pool = new Pool();
     this._collaborationService = collaborationService;
-	this._cacheService = cacheService;
+    this._cacheService = cacheService;
   }
 
   async addNote({
@@ -30,7 +30,7 @@ class NotesService {
       throw new InvariantError('Catatan gagal ditambahkan');
     }
 
-    await this._cacheService.delete(`notes:${owner}`);	
+    await this._cacheService.delete(`notes:${owner}`);
     return result.rows[0].id;
   }
 
@@ -48,13 +48,13 @@ class NotesService {
         GROUP BY notes.id`,
         values: [owner],
       };
- 
+
       const result = await this._pool.query(query);
       const mappedResult = result.rows.map(mapDBToModel);
- 
-     // catatan akan disimpan pada cache sebelum fungsi getNotes dikembalikan
+
+      // catatan akan disimpan pada cache sebelum fungsi getNotes dikembalikan
       await this._cacheService.set(`notes:${owner}`, JSON.stringify(mappedResult));
- 
+
       return mappedResult;
     }
   }
@@ -106,7 +106,7 @@ class NotesService {
     }
 
     const { owner } = result.rows[0];
-    await this._cacheService.delete(`notes:${owner}`);	
+    await this._cacheService.delete(`notes:${owner}`);
   }
 
   async verifyNoteOwner(id, owner) {

@@ -5,7 +5,7 @@ const InvariantError = require('../../exceptions/InvariantError');
 class CollaborationsService {
   constructor(cacheService) {
     this._pool = new Pool();
-	this._cacheService = cacheService;
+    this._cacheService = cacheService;
   }
 
   async addCollaboration(noteId, userId) {
@@ -38,7 +38,7 @@ class CollaborationsService {
       throw new InvariantError('Kolaborasi gagal dihapus');
     }
 
-    await this._cacheService.delete(`notes:${userId}`);	
+    await this._cacheService.delete(`notes:${userId}`);
   }
 
   async verifyCollaborator(noteId, userId) {

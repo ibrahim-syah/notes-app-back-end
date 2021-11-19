@@ -1,16 +1,16 @@
 const redis = require('redis');
- 
+
 class CacheService {
   constructor() {
     this._client = redis.createClient({
       host: process.env.REDIS_SERVER,
     });
- 
+
     this._client.on('error', (error) => {
       throw error;
     });
   }
- 
+
   set(key, value, expirationInSecond = 3600) {
     return new Promise((resolve, reject) => {
       this._client.set(key, value, 'EX', expirationInSecond, (error, ok) => {
